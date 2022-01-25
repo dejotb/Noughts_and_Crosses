@@ -1,10 +1,10 @@
 'use strict'
 
-// class Player {
-//     constructor() {
-
-//     }
-// }
+class Player {
+    constructor(image) {
+        this.image = image
+    }
+}
 
 
 
@@ -15,29 +15,43 @@ const boardField = document.querySelectorAll('.board__item')
 
 let fieldsSelected = ['', '', ''];
 
-const player1 = 0;
-const player2 = 1;
+const player1 = new Player ('cross.svg');
+const player2 = new Player ('circle.jpg');
 
-let activePlayer = player1;
+const players = [player1, player2];
+let roundNr = 0
 
 
-const addImage = function(e) {
+const addImage = function(e, player) {
     const html = `
-        <img src='img/cross.svg' alt='image'>
+        <img src='img/${player.image}' alt='image'>
     `;
     if (e.target.classList.contains('board__item'))
     e.target.insertAdjacentHTML('afterbegin', html)
 }
 
+const addRound = function() {
+    return roundNr++;
+}
+
 const selectBoardField = function(e) {
+    let activePlayer = players[0];
+    if (roundNr % 2) {
+        activePlayer = players[1]
+    } else {
+        activePlayer = players[0]
+    };
     if (e.target.classList.contains('board__item')) {
         const selectedField = e.target.dataset.number;
         fieldsSelected[0] = selectedField;
         console.log(fieldsSelected);
-        addImage(e)
+        addImage(e, activePlayer);
+        addRound()
+        console.log(roundNr)
     }
 
 }
 
 
 board.addEventListener('click', selectBoardField)
+
