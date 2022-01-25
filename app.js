@@ -15,21 +15,28 @@ const boardField = document.querySelectorAll('.board__item')
 
 let fieldsSelected = ['', '', ''];
 
+const player1 = 0;
+const player2 = 1;
+
+let activePlayer = player1;
 
 
 const addImage = function(e) {
     const html = `
         <img src='img/cross.svg' alt='image'>
     `;
+    if (e.target.classList.contains('board__item'))
     e.target.insertAdjacentHTML('afterbegin', html)
 }
 
 const selectBoardField = function(e) {
-    console.log(e.target.dataset.number);
-    const selectedField = e.target.dataset.number;
-    fieldsSelected[0] = selectedField;
-    console.log(fieldsSelected);
-    addImage(e)
+    if (e.target.classList.contains('board__item')) {
+        const selectedField = e.target.dataset.number;
+        fieldsSelected[0] = selectedField;
+        console.log(fieldsSelected);
+        addImage(e)
+    }
+
 }
 
 
