@@ -86,11 +86,11 @@ const play = function () {
   // console.log(containsAll);
   // console.log(containsAll.some((el) => el === true));
 
-  if (roundNr === 10) {
-    alert('we have a tie game!!');
-    clearData()
-  } else if(containsAll.some((el) => el)) {
+  if(containsAll.some((el) => el)) {
     alert(`${player.player} WON!!!`);
+    clearData()
+  } else if (roundNr === 10) {
+    alert('we have a tie game!!');
     clearData()
   }
 
