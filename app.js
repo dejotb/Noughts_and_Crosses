@@ -1,3 +1,6 @@
+
+// Creates players blueprint
+
 class Player {
   constructor(player, image) {
     this.player = player;
@@ -7,6 +10,9 @@ class Player {
 }
 
 const play = function () {
+
+  // Creates a grid of all winning combinations
+
   const boardGrid = [
     [1, 2, 3],
     [4, 5, 6],
@@ -18,16 +24,29 @@ const play = function () {
     [3, 5, 7],
   ];
 
-  const board = document.querySelector('.board__container');
-  const boardField = document.querySelectorAll('.board__item');
+  // Select class from HTML
 
-  // let fieldsSelected = ['', '', ''];
+  const board = document.querySelector('.board__container');
+
+
+  // Creates players
 
   const player1 = new Player('Player One', 'cross.svg');
   const player2 = new Player('Player Two', 'circle.jpg');
 
+
+  // Creates an array of players
+
   const players = [player1, player2];
-  let roundNr = 0;
+
+  // Shows the active player
+  let activePlayer = players[0];
+
+  // Shows current round
+
+  let roundNr = 1;
+
+  // Function to add cross/circle image in the board grid
 
   const addImage = function (e, player) {
     const html = `
@@ -37,12 +56,47 @@ const play = function () {
       e.target.insertAdjacentHTML('afterbegin', html);
   };
 
+
+  // Adds a round
+
   const addRound = function () {
+
     return roundNr++;
   };
 
+
+  const clearData = function() {
+    board.querySelectorAll('.board__item').forEach(item => item.textContent = '');
+    player1.allFieldsSelected = [];
+    player2.allFieldsSelected = [];
+    roundNr = 1;
+    console.log(player1.allFieldsSelected);
+    console.log(player2.allFieldsSelected);
+  }
+
+  // Compares the active player's all fields selected ('allFieldsSelected' variable) with the winning combinations grid ("boardGrid" variable).
+  // Shows wether active player won/lost, or there is a draw
+
+  const checkResult = function(player) {
+
+  const containsAll = boardGrid.map((arr) =>
+    arr.every((el) => player.allFieldsSelected.includes(el))
+  );
+  // console.log(boardGrid);
+  // console.log(containsAll);
+  // console.log(containsAll.some((el) => el === true));
+
+  if (roundNr === 10) {
+    alert('we have a tie game!!');
+    clearData()
+  } else if(containsAll.some((el) => el)) {
+    alert(`${player.player} WON!!!`);
+    clearData()
+  }
+
+  }
+
   const selectBoardField = function (e) {
-    let activePlayer = players[0];
     if (roundNr % 2) {
       activePlayer = players[1];
     } else {
@@ -51,29 +105,16 @@ const play = function () {
     if (e.target.classList.contains('board__item')) {
       const fieldSelected = e.target.dataset.number;
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
-      console.log(activePlayer.allFieldsSelected);
+      // console.log(activePlayer.allFieldsSelected);
       addImage(e, activePlayer);
       addRound();
       console.log(roundNr);
+      checkResult(activePlayer)
     }
   };
 
   board.addEventListener('click', selectBoardField);
 
-  const playerOneSelections = [4, 6, 5,];
-
-  const containsAll = boardGrid.map((arr) =>
-    arr.every((el) => playerOneSelections.includes(el))
-  );
-
-  console.log(containsAll);
-  console.log(containsAll.some((el) => el === true));
-
-  // const containsAll = arr1.every(element => {
-  //     return arr2.includes(element);
-  // });
-
-          console.log(boardGrid);
 };
 
 play();
