@@ -73,7 +73,7 @@ const play = function () {
   //     return arr2.includes(element);
   // });
 
-  console.log(boardGrid);
+          console.log(boardGrid);
 };
 
 play();
