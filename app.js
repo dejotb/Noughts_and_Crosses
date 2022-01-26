@@ -60,7 +60,7 @@ const play = function () {
 
   board.addEventListener('click', selectBoardField);
 
-  const playerOneSelections = [4, 6, 5];
+  const playerOneSelections = [4, 6, 5, 5];
 
   const containsAll = boardGrid.map((arr) =>
     arr.every((el) => playerOneSelections.includes(el))
