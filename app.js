@@ -11,7 +11,7 @@ class Player {
 
 const play = function () {
 
-  // Creates a grid of all winning combinations
+// Creates a grid of all winning combinations
 
   const boardGrid = [
     [1, 2, 3],
