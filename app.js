@@ -47,6 +47,7 @@ const play = function () {
 
   let roundNr = 1;
 
+
   let drawScore = 0;
 
   // Add cross/circle image to the board grid
@@ -77,6 +78,7 @@ const play = function () {
   const addPointtoTie = function() {
     drawScore++;
     document.querySelector(`[data-id='0']`).innerHTML = drawScore;
+    document.querySelector(`[data-id='0']`).style.opacity = '1';
   }
 
   // Compares the active player's all fields selected ('allFieldsSelected' variable) with the winning combinations grid ("boardGrid" variable).
@@ -106,11 +108,15 @@ const play = function () {
     } else {
       activePlayer = players[1];
     }
+
     if (e.target.classList.contains('board__item')) {
       const fieldSelected = e.target.dataset.number;
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
-      console.log(activePlayer.allFieldsSelected);
+      document.querySelectorAll('.score__player').forEach(el => el.style.opacity = '0.5');
+
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '1'
       addImage(e, activePlayer);
+
       roundNr++;
       checkResult(activePlayer)
     }
@@ -121,3 +127,4 @@ const play = function () {
 };
 
 play();
+
