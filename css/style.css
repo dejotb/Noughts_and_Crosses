@@ -49,9 +49,9 @@ html {
 }
 
 body {
-  font-size: calc(15px + 0.2vw);
+  font-size: calc(15px + 0.8vw);
   font-family: var(--ff-primary);
-  color: var(--color-font);
+  color: var(--color-yellow);
   font-weight: 400;
   line-height: 1.6;
   text-rendering: optimizeSpeed;
@@ -132,19 +132,21 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
+  padding: 1rem;
+  grid-template-rows: 1fr auto;
   justify-items: center;
   align-items: center;
 }
 
 .board__container {
   max-width: 80rem;
-  height: 40vmax;
-  width: 40vmax;
-  background-color: pink;
+  height: 38vmax;
+  width: 38vmax;
+  background-color: var(--color-yellow);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
-  grid-gap: 1rem;
+  grid-gap: 0.5rem;
 }
 @media screen and (min-width: 45em) {
   .board__container {
@@ -154,6 +156,27 @@ body {
 }
 .board__item {
   background-color: var(--color-blue);
+}
+
+.score__container {
+  display: flex;
+  margin: 2rem 0;
+  grid-gap: 10vw;
+  padding: 0.5rem 1rem;
+}
+@media screen and (min-width: 45em) {
+  .score__container {
+    grid-gap: 5vw;
+  }
+}
+.score__player {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+.score__player span {
+  font-size: calc(15px + 2vw);
 }
 
 /*# sourceMappingURL=style.css.map */

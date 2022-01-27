@@ -2,10 +2,12 @@
 // Creates players blueprint
 
 class Player {
-  constructor(player, image) {
-    this.player = player;
+  constructor(player, image, playerId) {
+    this.playerName = player;
+    this.playerNumber = playerId
     this.image = image;
     this.allFieldsSelected = [];
+    this.playerScore = 0;
   }
 }
 
@@ -28,25 +30,26 @@ const play = function () {
 
   const board = document.querySelector('.board__container');
 
-
   // Creates players
 
-  const player1 = new Player('Player One', 'cross.svg');
-  const player2 = new Player('Player Two', 'circle.jpg');
+  const player1 = new Player('Player One', 'cross.svg', 1);
+  const player2 = new Player('Player Two', 'circle.jpg', 2);
 
 
   // Creates an array of players
 
   const players = [player1, player2];
 
-  // Shows the active player
+  // The active player
   let activePlayer = players[0];
 
-  // Shows current round
+  // Current round
 
   let roundNr = 1;
 
-  // Function to add cross/circle image in the board grid
+  let drawScore = 0;
+
+  // Add cross/circle image to the board grid
 
   const addImage = function (e, player) {
     const html = `
@@ -56,22 +59,24 @@ const play = function () {
       e.target.insertAdjacentHTML('afterbegin', html);
   };
 
-
-  // Adds a round
-
-  const addRound = function () {
-
-    return roundNr++;
-  };
-
-
   const clearData = function() {
     board.querySelectorAll('.board__item').forEach(item => item.textContent = '');
     player1.allFieldsSelected = [];
     player2.allFieldsSelected = [];
     roundNr = 1;
-    console.log(player1.allFieldsSelected);
-    console.log(player2.allFieldsSelected);
+  }
+
+ // Addes point to players score after a win
+
+  const addPointtoPlayer = function(player) {
+    player.playerScore+=1;
+    document.querySelector(`[data-id='${player.playerNumber}']`).innerHTML = player.playerScore;
+  }
+
+
+  const addPointtoTie = function() {
+    drawScore++;
+    document.querySelector(`[data-id='0']`).innerHTML = drawScore;
   }
 
   // Compares the active player's all fields selected ('allFieldsSelected' variable) with the winning combinations grid ("boardGrid" variable).
@@ -82,33 +87,31 @@ const play = function () {
   const containsAll = boardGrid.map((arr) =>
     arr.every((el) => player.allFieldsSelected.includes(el))
   );
-  // console.log(boardGrid);
-  // console.log(containsAll);
-  // console.log(containsAll.some((el) => el === true));
 
   if(containsAll.some((el) => el)) {
-    alert(`${player.player} WON!!!`);
+    alert(`${player.playerName} WON!!!`);
+    addPointtoPlayer(player)
     clearData()
   } else if (roundNr === 10) {
     alert('we have a tie game!!');
-    clearData()
+    addPointtoTie();
+    clearData();
   }
 
-  }
+  };
 
   const selectBoardField = function (e) {
     if (roundNr % 2) {
-      activePlayer = players[1];
-    } else {
       activePlayer = players[0];
+    } else {
+      activePlayer = players[1];
     }
     if (e.target.classList.contains('board__item')) {
       const fieldSelected = e.target.dataset.number;
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
-      // console.log(activePlayer.allFieldsSelected);
+      console.log(activePlayer.allFieldsSelected);
       addImage(e, activePlayer);
-      addRound();
-      console.log(roundNr);
+      roundNr++;
       checkResult(activePlayer)
     }
   };

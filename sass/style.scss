@@ -71,9 +71,9 @@ html {
 }
 
 body {
-  font-size: calc(15px + 0.2vw);
+  font-size: calc(15px + 0.8vw);
   font-family: var(--ff-primary);
-  color: var(--color-font);
+  color: var(--color-yellow);
   font-weight: 400;
   line-height: 1.6;
   text-rendering: optimizeSpeed;
@@ -155,21 +155,25 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
+  padding: 1rem;
+  grid-template-rows: 1fr auto;
   justify-items: center;
   align-items: center;
 }
 
+// Board
+
 .board {
   &__container {
     max-width: 80rem;
-    height: 40vmax;
-    width: 40vmax;
-    background-color: pink;
+    height: 38vmax;
+    width: 38vmax;
+    background-color: var(--color-yellow);
     // padding: 2rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
-    grid-gap: 1rem;
+    grid-gap: 0.5rem;
 
     @media screen and (min-width: $bp-sm) {
       height: 30vmax;
@@ -181,5 +185,31 @@ body {
     // width: 50px;
     // height: 50px;
     background-color: var(--color-blue);
+  }
+}
+
+// Score table
+
+.score {
+  &__container {
+    display: flex;
+    // background-color: pink;
+    margin: 2rem 0;
+    grid-gap: 10vw;
+    padding: 0.5rem 1rem;
+    @media screen and (min-width: $bp-sm) {
+      grid-gap: 5vw;
+    }
+  }
+
+  &__player {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+
+    & span {
+      font-size: calc(15px + 2vw);
+    }
   }
 }
