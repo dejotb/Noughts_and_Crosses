@@ -133,7 +133,6 @@ body {
   height: 100vh;
   display: grid;
   padding: 1rem;
-  grid-template-rows: 1fr auto;
   justify-items: center;
   align-items: center;
 }
