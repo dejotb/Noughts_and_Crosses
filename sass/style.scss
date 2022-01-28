@@ -32,7 +32,7 @@ $bp-sm: 45em; // 600px;
 
   --color-green: #07793d;
   --color-yellow: #fdd01b;
-  --color-blue: #202c46;
+  --color-blue: #10ac84;
   --color-red: #db3445;
   --color-white: #ffffff;
   --color-grey: #363636;
@@ -207,9 +207,14 @@ body {
     flex-direction: column;
     justify-items: center;
     align-items: center;
+    opacity: 0.5;
 
     & span {
       font-size: calc(15px + 2vw);
     }
   }
+}
+
+.transparency {
+  opacity: 1;
 }

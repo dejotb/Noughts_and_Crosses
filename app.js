@@ -29,6 +29,7 @@ const play = function () {
   // Select class from HTML
 
   const board = document.querySelector('.board__container');
+  const playersScore = document.querySelectorAll('.score__player');
 
   // Creates players
 
@@ -41,12 +42,16 @@ const play = function () {
   const players = [player1, player2];
 
   // The active player
-  let activePlayer = players[0];
+  let activePlayer = '';
 
   // Current round
 
   let roundNr = 1;
 
+
+  let playerTun = 1;
+
+  // let startingPlayerCount = 0;
 
   let drawScore = 0;
 
@@ -65,6 +70,9 @@ const play = function () {
     player1.allFieldsSelected = [];
     player2.allFieldsSelected = [];
     roundNr = 1;
+    playerTun++
+    // startingPlayerCount++;
+
   }
 
  // Addes point to players score after a win
@@ -78,7 +86,7 @@ const play = function () {
   const addPointtoTie = function() {
     drawScore++;
     document.querySelector(`[data-id='0']`).innerHTML = drawScore;
-    document.querySelector(`[data-id='0']`).style.opacity = '1';
+
   }
 
   // Compares the active player's all fields selected ('allFieldsSelected' variable) with the winning combinations grid ("boardGrid" variable).
@@ -92,32 +100,45 @@ const play = function () {
 
   if(containsAll.some((el) => el)) {
     alert(`${player.playerName} WON!!!`);
-    addPointtoPlayer(player)
-    clearData()
+    addPointtoPlayer(player);
+    clearData();
+    console.log(playerTun);
+
+
   } else if (roundNr === 10) {
     alert('we have a tie game!!');
     addPointtoTie();
     clearData();
+
+    console.log(playerTun);
+
+
   }
 
   };
 
   const selectBoardField = function (e) {
-    if (roundNr % 2) {
+    if (playerTun % 2) {
       activePlayer = players[0];
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
     } else {
       activePlayer = players[1];
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
     }
 
+
     if (e.target.classList.contains('board__item')) {
+
       const fieldSelected = e.target.dataset.number;
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
-      document.querySelectorAll('.score__player').forEach(el => el.style.opacity = '0.5');
+      playersScore.forEach(el => el.style.opacity = '1');
+      document.querySelector(`[data-id='0']`).closest('.score__player').style.opacity = '0.7';
 
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '1'
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
       addImage(e, activePlayer);
 
       roundNr++;
+      playerTun++
       checkResult(activePlayer)
     }
   };
