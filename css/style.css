@@ -1,5 +1,5 @@
 :root {
-  --ff-primary: "Lato", sans-serif;
+  --ff-primary: "Pangolin", cursive;
   --ff-display: "Neuton", serif;
   --fs-xl: clamp(3.5rem, 6vw + 1rem, 5rem);
   --fs-600: clamp(3.25rem, 6vw + 1rem, 4rem);
@@ -49,7 +49,7 @@ html {
 }
 
 body {
-  font-size: calc(15px + 0.8vw);
+  font-size: calc(13px + 0.8vw);
   font-family: var(--ff-primary);
   color: var(--color-yellow);
   font-weight: 400;
@@ -142,16 +142,16 @@ body {
 .board__container {
   position: relative;
   max-width: 80rem;
-  height: 38vmax;
-  width: 38vmax;
-  background-color: var(--color-yellow);
-  border: solid 0.5rem var(--color-yellow);
+  height: 36vmax;
+  width: 36vmax;
+  background-color: var(--color-white);
+  border: solid 0.5rem var(--color-white);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
   grid-gap: 0.5rem;
 }
-@media screen and (min-width: 60em) {
+@media screen and (min-width: 90em) {
   .board__container {
     height: 25vmax;
     width: 25vmax;
@@ -253,8 +253,15 @@ body {
 }
 
 .image__supporter {
-  margin-bottom: -4rem;
-  width: 20vmax;
+  display: block;
+  margin-bottom: -5rem;
+  width: 18vmax;
+}
+@media screen and (min-width: 90em) {
+  .image__supporter {
+    width: 10vmax;
+    margin-bottom: -4rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

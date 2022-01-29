@@ -35,8 +35,8 @@ const play = function () {
 
   // Creates players
 
-  const player1 = new Player('Player One', 'cross.svg', 1);
-  const player2 = new Player('Player Two', 'kółko.png', 2);
+  const player1 = new Player('Player 1', 'x.svg', 1);
+  const player2 = new Player('Player 2', 'circle.svg', 2);
 
 
   // Creates an array of players
@@ -71,6 +71,23 @@ const play = function () {
 
   };
 
+  const showWinModal = function() {
+    const html = `
+      <p>Congrats!!!</p>
+      <p>${activePlayer.playerName} won!!</p>
+    `
+    modal.insertAdjacentHTML('afterbegin', html);
+    modal.classList.remove('hidden');
+  }
+
+  const showDrawModal = function() {
+    const html = `
+      <p>We have a draw!!!</p>
+    `
+    modal.insertAdjacentHTML('afterbegin', html);
+    modal.classList.remove('hidden');
+  }
+
 
   const animateWinner = function(winningCombination) {
     const winnerDOMFields =  winningCombination[0].map(
@@ -94,6 +111,7 @@ const play = function () {
     boardFields.forEach(el => el.style.pointerEvents = 'all');
     document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
     board.classList.remove('draw');
+    modal.innerHTML = '<button>next round!</button>';
 
   }
 
@@ -123,7 +141,7 @@ const play = function () {
   if(containsAll.some((el) => el)) {
     animateWinner(containsAll);
     // alert(`${player.playerName} WON!!!`);
-    modal.classList.remove('hidden')
+    setTimeout(showWinModal, 2000);
 
     addPointtoPlayer(player);
     document.querySelector('button').addEventListener('click', clearData);
@@ -133,7 +151,7 @@ const play = function () {
 
   } else if (roundNr === 10) {
     board.classList.add('draw');
-    modal.classList.remove('hidden');
+    setTimeout(showDrawModal, 2000);
     // alert('we have a tie game!!');
     addPointtoTie();
 
