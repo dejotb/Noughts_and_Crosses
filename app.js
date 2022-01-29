@@ -66,18 +66,12 @@ const play = function () {
   };
 
 
-  const animateWinner = function(player) {
-    // console.log(player.allFieldsSelected);
-    const winnerDOMFields =  player.allFieldsSelected.map(
+  const animateWinner = function(winningCombination) {
+    const winnerDOMFields =  winningCombination[0].map(
       element => element = document.querySelector(`[data-number='${element}'] img`)
     );
-      // console.log(winnerDOMFields);
     winnerDOMFields.forEach(el => el.classList.add('winner'));
-
-      board.style.pointerEvents = 'none';
-    // console.log(document.querySelector(`[data-number='${player.allFieldsSelected[0]}']`));
-    // let animetedFields = Array.from(board.children).find(element => parseInt(element.getAttribute('data-number')) === 3);
-    // console.log(animetedFields);
+    board.style.pointerEvents = 'none';
   }
 
   const clearData = function() {
@@ -111,13 +105,11 @@ const play = function () {
   const containsAll = boardGrid.filter((arr) =>
     arr.every((el) => player.allFieldsSelected.includes(el))
   );
-  console.log(containsAll);
 
   if(containsAll.some((el) => el)) {
     alert(`${player.playerName} WON!!!`);
-    // console.log(boardGrid.find(el => el === ));
 
-    animateWinner(player)
+    animateWinner(containsAll)
     addPointtoPlayer(player);
     document.querySelector('button').addEventListener('click', clearData);
     // clearData();
@@ -127,9 +119,9 @@ const play = function () {
   } else if (roundNr === 10) {
     alert('we have a tie game!!');
     addPointtoTie();
+    // board.style.background = 'pink';
     document.querySelector('button').addEventListener('click', clearData);
     // clearData();
-
     // console.log(playerTun);
 
 
