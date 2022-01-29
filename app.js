@@ -65,13 +65,21 @@ const play = function () {
       e.target.insertAdjacentHTML('afterbegin', html);
   };
 
+
+  const animateWinner = function(player) {
+    console.log(player.allFieldsSelected);
+    console.log(document.querySelector(`[data-number='${player.allFieldsSelected[0]}']`));
+    let animetedFields = Array.from(board.children).find(element => parseInt(element.getAttribute('data-number')) === 3);
+    console.log(animetedFields);
+  }
+
   const clearData = function() {
     board.querySelectorAll('.board__item').forEach(item => item.textContent = '');
     player1.allFieldsSelected = [];
     player2.allFieldsSelected = [];
     roundNr = 1;
-    playerTun++
-    // startingPlayerCount++;
+    playerTun+=2;
+
 
   }
 
@@ -81,7 +89,6 @@ const play = function () {
     player.playerScore+=1;
     document.querySelector(`[data-id='${player.playerNumber}']`).innerHTML = player.playerScore;
   }
-
 
   const addPointtoTie = function() {
     drawScore++;
@@ -100,7 +107,10 @@ const play = function () {
 
   if(containsAll.some((el) => el)) {
     alert(`${player.playerName} WON!!!`);
+
+    animateWinner(player)
     addPointtoPlayer(player);
+    // debugger;
     clearData();
     console.log(playerTun);
 
@@ -125,6 +135,7 @@ const play = function () {
       activePlayer = players[1];
       document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
     }
+
 
 
     if (e.target.classList.contains('board__item')) {
