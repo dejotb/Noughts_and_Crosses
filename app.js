@@ -29,6 +29,7 @@ const play = function () {
   // Select class from HTML
 
   const board = document.querySelector('.board__container');
+  const boardFields = document.querySelectorAll('.board__item');
   const playersScore = document.querySelectorAll('.score__player');
 
   // Creates players
@@ -71,7 +72,8 @@ const play = function () {
       element => element = document.querySelector(`[data-number='${element}'] img`)
     );
     winnerDOMFields.forEach(el => el.classList.add('winner'));
-    board.style.pointerEvents = 'none';
+    // board.style.pointerEvents = 'none';
+    boardFields.forEach(el => el.style.pointerEvents = 'none');
   }
 
   const clearData = function() {
@@ -80,7 +82,9 @@ const play = function () {
     player2.allFieldsSelected = [];
     roundNr = 1;
     playerTun+=2;
-    board.style.pointerEvents = 'all';
+    // board.style.pointerEvents = 'all';
+    boardFields.forEach(el => el.style.pointerEvents = 'all');
+    document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '1';
 
   }
 
@@ -141,18 +145,26 @@ const play = function () {
 
 
     if (e.target.classList.contains('board__item')) {
-
       const fieldSelected = e.target.dataset.number;
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
-      playersScore.forEach(el => el.style.opacity = '1');
-      document.querySelector(`[data-id='0']`).closest('.score__player').style.opacity = '0.7';
-
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
       addImage(e, activePlayer);
 
-      roundNr++;
-      playerTun++
-      checkResult(activePlayer)
+
+
+        playersScore.forEach(el => el.style.opacity = '1');
+
+        console.log(document.querySelector(`[data-number='${fieldSelected}']`));
+
+
+        document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
+        // document.querySelector(`[data-number='${fieldSelected}']`).style.pointerEvents = 'none';
+        roundNr++;
+        playerTun++
+        checkResult(activePlayer)
+
+
+
+
     }
   };
 
