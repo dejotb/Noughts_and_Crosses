@@ -34,7 +34,7 @@ const play = function () {
   // Creates players
 
   const player1 = new Player('Player One', 'cross.svg', 1);
-  const player2 = new Player('Player Two', 'circle.jpg', 2);
+  const player2 = new Player('Player Two', 'kółko.png', 2);
 
 
   // Creates an array of players
@@ -67,10 +67,17 @@ const play = function () {
 
 
   const animateWinner = function(player) {
-    console.log(player.allFieldsSelected);
-    console.log(document.querySelector(`[data-number='${player.allFieldsSelected[0]}']`));
-    let animetedFields = Array.from(board.children).find(element => parseInt(element.getAttribute('data-number')) === 3);
-    console.log(animetedFields);
+    // console.log(player.allFieldsSelected);
+    const winnerDOMFields =  player.allFieldsSelected.map(
+      element => element = document.querySelector(`[data-number='${element}'] img`)
+    );
+      // console.log(winnerDOMFields);
+    winnerDOMFields.forEach(el => el.classList.add('winner'));
+
+      board.style.pointerEvents = 'none';
+    // console.log(document.querySelector(`[data-number='${player.allFieldsSelected[0]}']`));
+    // let animetedFields = Array.from(board.children).find(element => parseInt(element.getAttribute('data-number')) === 3);
+    // console.log(animetedFields);
   }
 
   const clearData = function() {
@@ -79,7 +86,7 @@ const play = function () {
     player2.allFieldsSelected = [];
     roundNr = 1;
     playerTun+=2;
-
+    board.style.pointerEvents = 'all';
 
   }
 
@@ -101,26 +108,29 @@ const play = function () {
 
   const checkResult = function(player) {
 
-  const containsAll = boardGrid.map((arr) =>
+  const containsAll = boardGrid.filter((arr) =>
     arr.every((el) => player.allFieldsSelected.includes(el))
   );
+  console.log(containsAll);
 
   if(containsAll.some((el) => el)) {
     alert(`${player.playerName} WON!!!`);
+    // console.log(boardGrid.find(el => el === ));
 
     animateWinner(player)
     addPointtoPlayer(player);
-    // debugger;
-    clearData();
-    console.log(playerTun);
+    document.querySelector('button').addEventListener('click', clearData);
+    // clearData();
+    // console.log(playerTun);
 
 
   } else if (roundNr === 10) {
     alert('we have a tie game!!');
     addPointtoTie();
-    clearData();
+    document.querySelector('button').addEventListener('click', clearData);
+    // clearData();
 
-    console.log(playerTun);
+    // console.log(playerTun);
 
 
   }

@@ -183,4 +183,22 @@ body {
   opacity: 1;
 }
 
+.winner {
+  background-color: red;
+  animation-name: winnerAnimation;
+  animation-duration: 4s;
+}
+
+@keyframes winnnerAnimation {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.5);
+  }
+}
+
 /*# sourceMappingURL=style.css.map */
