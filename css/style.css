@@ -190,11 +190,11 @@ body {
 }
 
 .imageEnter {
-  animation: imageEnter 1s 1 forwards;
+  animation: imageEnter 0.5s 1 forwards;
 }
 
 .winner {
-  animation: winnnerAnimation 0.5s alternate 8 ease-in forwards;
+  animation: winnnerAnimation 0.4s alternate 8 ease-in forwards;
 }
 
 .draw {
