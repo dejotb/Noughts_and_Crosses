@@ -30,7 +30,8 @@ const play = function () {
 
   const board = document.querySelector('.board__container');
   const boardFields = document.querySelectorAll('.board__item');
-  const playersScore = document.querySelectorAll('.score__player');
+  const playersScore = document.querySelectorAll('.score__total');
+  const modal = document.querySelector('.modal__container');
 
   // Creates players
 
@@ -78,18 +79,20 @@ const play = function () {
     winnerDOMFields.forEach(el => el.classList.add('winner'));
     // board.style.pointerEvents = 'none';
     // boardFields.forEach(el => el.style.pointerEvents = 'none');
-    board.style.pointerEvents = 'none';
+    // board.style.pointerEvents = 'none';
+    boardFields.forEach(el => el.style.pointerEvents = 'none');
   }
 
   const clearData = function() {
+    modal.classList.add('hidden');
     board.querySelectorAll('.board__item').forEach(item => item.textContent = '');
     player1.allFieldsSelected = [];
     player2.allFieldsSelected = [];
     roundNr = 1;
     playerTun+=2;
-    board.style.pointerEvents = 'all';
-    // boardFields.forEach(el => el.style.pointerEvents = 'all');
-    document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '.5';
+    // board.style.pointerEvents = 'all';
+    boardFields.forEach(el => el.style.pointerEvents = 'all');
+    document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
     board.classList.remove('draw');
 
   }
@@ -116,18 +119,22 @@ const play = function () {
     arr.every((el) => player.allFieldsSelected.includes(el))
   );
 
+  // If player WON
   if(containsAll.some((el) => el)) {
     animateWinner(containsAll);
-    alert(`${player.playerName} WON!!!`);
+    // alert(`${player.playerName} WON!!!`);
+    modal.classList.remove('hidden')
 
     addPointtoPlayer(player);
     document.querySelector('button').addEventListener('click', clearData);
 
 
+    // if it is a DRAW
 
   } else if (roundNr === 10) {
     board.classList.add('draw');
-    alert('we have a tie game!!');
+    modal.classList.remove('hidden');
+    // alert('we have a tie game!!');
     addPointtoTie();
 
     document.querySelector('button').addEventListener('click', clearData);
@@ -138,10 +145,10 @@ const play = function () {
   const selectBoardField = function (e) {
     if (playerTun % 2) {
       activePlayer = players[0];
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
     } else {
       activePlayer = players[1];
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
     }
 
 
@@ -152,7 +159,8 @@ const play = function () {
       addImage(e, activePlayer);
 
       playersScore.forEach(el => el.style.opacity = '1');
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+      e.target.style.pointerEvents = 'none';
       roundNr++;
       playerTun++
       checkResult(activePlayer)

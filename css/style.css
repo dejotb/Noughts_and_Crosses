@@ -9,7 +9,7 @@
   --color-primary: #ffc600;
   --color-green: #07793d;
   --color-yellow: #fdd01b;
-  --color-blue: #10ac84;
+  --color-blue: #0c2461;
   --color-red: #db3445;
   --color-white: #ffffff;
   --color-grey: #363636;
@@ -134,24 +134,27 @@ body {
   height: 100vh;
   display: grid;
   padding: 1rem;
+  grid-template-rows: auto repeat(2, 1fr);
   justify-items: center;
   align-items: center;
 }
 
 .board__container {
+  position: relative;
   max-width: 80rem;
   height: 38vmax;
   width: 38vmax;
   background-color: var(--color-yellow);
+  border: solid 0.5rem var(--color-yellow);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
   grid-gap: 0.5rem;
 }
-@media screen and (min-width: 45em) {
+@media screen and (min-width: 60em) {
   .board__container {
-    height: 30vmax;
-    width: 30vmax;
+    height: 25vmax;
+    width: 25vmax;
   }
 }
 .board__item {
@@ -172,19 +175,18 @@ body {
     grid-gap: 5vw;
   }
 }
-.score__player {
+.score__total, .score__draw {
   display: flex;
   flex-direction: column;
   justify-items: center;
   align-items: center;
   opacity: 0.5;
 }
-.score__player span {
+.score__total span, .score__draw span {
   font-size: calc(15px + 2vw);
 }
-
-.transparency {
-  opacity: 1;
+.score__draw {
+  opacity: 0.7;
 }
 
 .imageEnter {
@@ -192,11 +194,11 @@ body {
 }
 
 .winner {
-  animation: winnnerAnimation 0.5s alternate 6 ease-in forwards;
+  animation: winnnerAnimation 0.5s alternate 8 ease-in forwards;
 }
 
 .draw {
-  animation: drawAnimation 0.5s alternate 0.5s 6 ease-in;
+  animation: drawAnimation 0.5s alternate 0.5s 8 ease-in;
 }
 
 @keyframes winnnerAnimation {
@@ -209,10 +211,10 @@ body {
 }
 @keyframes drawAnimation {
   0% {
-    background-color: #db3445;
+    background-color: var(--color-yellow);
   }
   100% {
-    background-color: var(--color-yellow);
+    background-color: var(--color-grey);
   }
 }
 @keyframes imageEnter {
@@ -222,6 +224,37 @@ body {
   100% {
     transform: scale(0.8);
   }
+}
+.modal__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(30rem, calc(35vw + 10rem));
+  height: calc(12rem + 5vw);
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  transition: all 1s;
+  background-color: var(--color-font);
+}
+
+.opacity-full {
+  opacity: 1;
+}
+
+.opacity-half {
+  opacity: 0.5;
+}
+
+.hidden {
+  opacity: 0.5;
+  display: none;
+}
+
+.image__supporter {
+  margin-bottom: -4rem;
+  width: 20vmax;
 }
 
 /*# sourceMappingURL=style.css.map */
