@@ -60,10 +60,14 @@ const play = function () {
 
   const addImage = function (e, player) {
     const html = `
-            <img src='img/${player.image}' alt='image'>
+            <img class='image' src='img/${player.image}' alt='image'>
         `;
-    if (e.target.classList.contains('board__item'))
+    if (e.target.classList.contains('board__item')) {
       e.target.insertAdjacentHTML('afterbegin', html);
+      // e.target.classList.add('imageEnter')
+      e.target.querySelector('.image').classList.add('imageEnter');
+    }
+
   };
 
 
@@ -73,7 +77,8 @@ const play = function () {
     );
     winnerDOMFields.forEach(el => el.classList.add('winner'));
     // board.style.pointerEvents = 'none';
-    boardFields.forEach(el => el.style.pointerEvents = 'none');
+    // boardFields.forEach(el => el.style.pointerEvents = 'none');
+    board.style.pointerEvents = 'none';
   }
 
   const clearData = function() {
@@ -82,9 +87,10 @@ const play = function () {
     player2.allFieldsSelected = [];
     roundNr = 1;
     playerTun+=2;
-    // board.style.pointerEvents = 'all';
-    boardFields.forEach(el => el.style.pointerEvents = 'all');
-    document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '1';
+    board.style.pointerEvents = 'all';
+    // boardFields.forEach(el => el.style.pointerEvents = 'all');
+    document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '.5';
+    board.classList.remove('draw');
 
   }
 
@@ -111,24 +117,20 @@ const play = function () {
   );
 
   if(containsAll.some((el) => el)) {
+    animateWinner(containsAll);
     alert(`${player.playerName} WON!!!`);
 
-    animateWinner(containsAll)
     addPointtoPlayer(player);
     document.querySelector('button').addEventListener('click', clearData);
-    // clearData();
-    // console.log(playerTun);
+
 
 
   } else if (roundNr === 10) {
+    board.classList.add('draw');
     alert('we have a tie game!!');
     addPointtoTie();
-    // board.style.background = 'pink';
+
     document.querySelector('button').addEventListener('click', clearData);
-    // clearData();
-    // console.log(playerTun);
-
-
   }
 
   };
@@ -149,18 +151,11 @@ const play = function () {
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
       addImage(e, activePlayer);
 
-
-
-        playersScore.forEach(el => el.style.opacity = '1');
-
-        console.log(document.querySelector(`[data-number='${fieldSelected}']`));
-
-
-        document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
-        // document.querySelector(`[data-number='${fieldSelected}']`).style.pointerEvents = 'none';
-        roundNr++;
-        playerTun++
-        checkResult(activePlayer)
+      playersScore.forEach(el => el.style.opacity = '1');
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__player').style.opacity = '0.5';
+      roundNr++;
+      playerTun++
+      checkResult(activePlayer)
 
 
 
