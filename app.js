@@ -110,7 +110,7 @@ const play = function () {
     // board.style.pointerEvents = 'all';
     boardFields.forEach(el => el.style.pointerEvents = 'all');
     document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-    // board.classList.remove('draw');
+    board.classList.remove('draw');
     modal.innerHTML = '<button>next round!</button>';
     board.addEventListener('click', selectBoardField);
 
