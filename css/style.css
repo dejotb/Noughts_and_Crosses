@@ -134,7 +134,7 @@ body {
   height: 100vh;
   display: grid;
   padding: 5rem 1rem 1rem;
-  grid-gap: 2rem;
+  grid-gap: 5rem;
   grid-template-rows: 1fr 1fr;
   justify-items: center;
   align-items: start;
@@ -248,7 +248,7 @@ body {
 }
 .modal__container {
   position: absolute;
-  top: 50%;
+  top: 43%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: max(30rem, calc(35vw + 10rem));
