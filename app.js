@@ -90,6 +90,7 @@ const play = function () {
 
 
   const animateWinner = function(winningCombination) {
+    boardFields.forEach(el => el.style.pointerEvents = 'none');
     const winnerDOMFields =  winningCombination[0].map(
       element => element = document.querySelector(`[data-number='${element}'] img`)
     );
@@ -97,7 +98,6 @@ const play = function () {
     // board.style.pointerEvents = 'none';
     // boardFields.forEach(el => el.style.pointerEvents = 'none');
     // board.style.pointerEvents = 'none';
-    boardFields.forEach(el => el.style.pointerEvents = 'none');
   }
 
   const clearData = function() {
@@ -110,8 +110,9 @@ const play = function () {
     // board.style.pointerEvents = 'all';
     boardFields.forEach(el => el.style.pointerEvents = 'all');
     document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-    board.classList.remove('draw');
+    // board.classList.remove('draw');
     modal.innerHTML = '<button>next round!</button>';
+    board.addEventListener('click', selectBoardField);
 
   }
 
@@ -141,7 +142,8 @@ const play = function () {
   if(containsAll.some((el) => el)) {
     animateWinner(containsAll);
     // alert(`${player.playerName} WON!!!`);
-    setTimeout(showWinModal, 2000);
+    board.removeEventListener('click', selectBoardField);
+    setTimeout(showWinModal, 1500);
 
     addPointtoPlayer(player);
     document.querySelector('button').addEventListener('click', clearData);
@@ -149,9 +151,10 @@ const play = function () {
 
     // if it is a DRAW
 
-  } else if (roundNr === 10) {
+  } else if (roundNr === 9) {
+    board.removeEventListener('click', selectBoardField);
     board.classList.add('draw');
-    setTimeout(showDrawModal, 2000);
+    setTimeout(showDrawModal, 1500);
     // alert('we have a tie game!!');
     addPointtoTie();
 
@@ -172,16 +175,18 @@ const play = function () {
 
 
     if (e.target.classList.contains('board__item')) {
+      // boardFields.forEach(el => el.style.pointerEvents = 'none')
       const fieldSelected = e.target.dataset.number;
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
       addImage(e, activePlayer);
 
       playersScore.forEach(el => el.style.opacity = '1');
       document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+      // boardFields.forEach(el => el.style.pointerEvents = 'all')
       e.target.style.pointerEvents = 'none';
+      checkResult(activePlayer)
       roundNr++;
       playerTun++
-      checkResult(activePlayer)
 
 
 
