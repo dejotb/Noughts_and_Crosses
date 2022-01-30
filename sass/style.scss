@@ -156,10 +156,11 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
-  padding: 1rem;
-  grid-template-rows: 3fr 1fr;
+  padding: 5rem 1rem 1rem;
+  grid-gap: 2rem;
+  grid-template-rows: 1fr 1fr;
   justify-items: center;
-  align-items: center;
+  align-items: start;
 }
 
 // Board
