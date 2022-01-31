@@ -32,11 +32,13 @@ const play = function () {
   const boardFields = document.querySelectorAll('.board__item');
   const playersScore = document.querySelectorAll('.score__total');
   const modal = document.querySelector('.modal__container');
+  const handLeft = document.querySelector('.hand__left');
+  const handRight = document.querySelector('.hand__right');
 
   // Creates players
 
-  const player1 = new Player('Player 1', 'x.svg', 1);
-  const player2 = new Player('Player 2', 'circle.svg', 2);
+  const player1 = new Player('Player1', 'cross.svg', 1);
+  const player2 = new Player('Player2', 'circle.svg', 2);
 
 
   // Creates an array of players
@@ -65,7 +67,6 @@ const play = function () {
         `;
     if (e.target.classList.contains('board__item')) {
       e.target.insertAdjacentHTML('afterbegin', html);
-      // e.target.classList.add('imageEnter')
       e.target.querySelector('.image').classList.add('imageEnter');
     }
 
@@ -73,8 +74,7 @@ const play = function () {
 
   const showWinModal = function() {
     const html = `
-      <p>Congrats!!!</p>
-      <p>${activePlayer.playerName} won!!</p>
+      <p>${activePlayer.playerName} won!</p>
     `
     modal.insertAdjacentHTML('afterbegin', html);
     modal.classList.remove('hidden');
@@ -82,7 +82,7 @@ const play = function () {
 
   const showDrawModal = function() {
     const html = `
-      <p>We have a draw!!!</p>
+      <p>We have a draw!!</p>
     `
     modal.insertAdjacentHTML('afterbegin', html);
     modal.classList.remove('hidden');
@@ -90,14 +90,27 @@ const play = function () {
 
 
   const animateWinner = function(winningCombination) {
+
+    //animate board
+
     boardFields.forEach(el => el.style.pointerEvents = 'none');
     const winnerDOMFields =  winningCombination[0].map(
       element => element = document.querySelector(`[data-number='${element}'] img`)
     );
     winnerDOMFields.forEach(el => el.classList.add('winner'));
-    // board.style.pointerEvents = 'none';
-    // boardFields.forEach(el => el.style.pointerEvents = 'none');
-    // board.style.pointerEvents = 'none';
+
+    // animate referee
+
+    if (activePlayer === players[0]) {
+      handLeft.classList.add('hand__left-animation');
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '1';
+    } else if (activePlayer === players[1]) {
+      handRight.classList.add('hand__right-animation');
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '1';
+    };
+
+    // highlight winner score board
+
   }
 
   const clearData = function() {
@@ -107,12 +120,13 @@ const play = function () {
     player2.allFieldsSelected = [];
     roundNr = 1;
     playerTun+=2;
-    // board.style.pointerEvents = 'all';
     boardFields.forEach(el => el.style.pointerEvents = 'all');
     document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
     board.classList.remove('draw');
     modal.innerHTML = '<button>next round!</button>';
     board.addEventListener('click', selectBoardField);
+    handRight.classList.remove('hand__right-animation');
+    handLeft.classList.remove('hand__left-animation');
 
   }
 
@@ -139,15 +153,14 @@ const play = function () {
   );
 
   // If player WON
+
   if(containsAll.some((el) => el)) {
     animateWinner(containsAll);
-    // alert(`${player.playerName} WON!!!`);
+
     board.removeEventListener('click', selectBoardField);
     setTimeout(showWinModal, 1500);
-
     addPointtoPlayer(player);
     document.querySelector('button').addEventListener('click', clearData);
-
 
     // if it is a DRAW
 
@@ -155,7 +168,6 @@ const play = function () {
     board.removeEventListener('click', selectBoardField);
     board.classList.add('draw');
     setTimeout(showDrawModal, 1500);
-    // alert('we have a tie game!!');
     addPointtoTie();
 
     document.querySelector('button').addEventListener('click', clearData);
@@ -167,22 +179,22 @@ const play = function () {
     if (playerTun % 2) {
       activePlayer = players[0];
       document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+
     } else {
       activePlayer = players[1];
       document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+
     }
 
 
 
     if (e.target.classList.contains('board__item')) {
-      // boardFields.forEach(el => el.style.pointerEvents = 'none')
       const fieldSelected = e.target.dataset.number;
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
       addImage(e, activePlayer);
 
       playersScore.forEach(el => el.style.opacity = '1');
       document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-      // boardFields.forEach(el => el.style.pointerEvents = 'all')
       e.target.style.pointerEvents = 'none';
       checkResult(activePlayer)
       roundNr++;

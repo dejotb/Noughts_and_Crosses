@@ -1,6 +1,5 @@
 :root {
-  --ff-primary: "Pangolin", cursive;
-  --ff-display: "Press Start 2P", cursive;
+  --ff-primary: "Press Start 2P", cursive;
   --fs-xl: clamp(3.5rem, 6vw + 1rem, 5rem);
   --fs-600: clamp(3.25rem, 6vw + 1rem, 4rem);
   --fs-500: 2rem;
@@ -142,8 +141,8 @@ body {
 
 .board__container {
   position: relative;
-  height: 39vmax;
-  width: 39vmax;
+  height: 37vmax;
+  width: 37vmax;
   background-color: var(--color-white);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -169,7 +168,6 @@ body {
   justify-items: center;
 }
 .score__container {
-  font-family: var(--ff-display);
   font-size: 1.1rem;
   display: flex;
   background-color: black;
@@ -197,14 +195,20 @@ body {
 .score__draw {
   opacity: 0.7;
 }
+.score__image {
+  width: 3rem;
+}
 
-.image__supporter {
+.image__referee {
   display: block;
   margin-bottom: -3rem;
   width: 30vmax;
+  z-index: -1;
+  opacity: 0;
+  animation: refereeReveal 1.5s alternate 1s forwards ease-out;
 }
 @media screen and (min-width: 90em) {
-  .image__supporter {
+  .image__referee {
     width: 18vmax;
     margin-bottom: -4rem;
   }
@@ -256,8 +260,13 @@ body {
   display: grid;
   justify-items: center;
   align-items: center;
-  transition: all 1s;
+  transition: all 0.5s;
+  padding: 2rem;
   background-color: var(--color-font);
+}
+.modal__container button {
+  font-size: var(--fs-500);
+  padding: 0.5rem 1rem;
 }
 
 .opacity-full {
@@ -271,6 +280,55 @@ body {
 .hidden {
   opacity: 0.5;
   display: none;
+}
+
+.hand__left {
+  transform: translateY(15rem);
+  transform-origin: bottom right;
+}
+.hand__left-animation {
+  animation: handWaveLeft 0.8s 4 0.2s ease-in-out;
+}
+
+.hand__right {
+  transform: translateY(14rem);
+  transform-origin: bottom left;
+}
+.hand__right-animation {
+  animation: handWaveRight 0.8s 4 0.2s ease-in-out;
+}
+
+@keyframes handWaveLeft {
+  0% {
+    transform: rotate(-5deg) translate(0rem);
+  }
+  50% {
+    transform: rotate(2deg) translate(1rem);
+  }
+  100% {
+    transform: rotate(-5deg) translate(0rem);
+  }
+}
+@keyframes handWaveRight {
+  0% {
+    transform: rotate(5deg) translate(0rem);
+  }
+  50% {
+    transform: rotate(-6deg) translate(-4rem);
+  }
+  100% {
+    transform: rotate(5deg) translate(0rem);
+  }
+}
+@keyframes refereeReveal {
+  0% {
+    transform: translateY(10rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
