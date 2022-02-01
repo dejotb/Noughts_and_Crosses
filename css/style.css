@@ -133,8 +133,8 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
-  padding: 5rem 1rem 1rem;
-  grid-gap: 5rem;
+  padding: 4rem 1rem 0.5rem;
+  grid-gap: 2rem;
   grid-template-rows: 1fr 1fr;
   justify-items: center;
   align-items: start;
@@ -149,6 +149,13 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
   grid-gap: 0.5rem;
+}
+@media screen and (min-width: 25em) {
+  .board__container {
+    max-width: 80rem;
+    height: 40vmax;
+    width: 40vmax;
+  }
 }
 @media screen and (min-width: 90em) {
   .board__container {
@@ -176,7 +183,7 @@ body {
   grid-gap: 12vw;
   padding: 1rem;
 }
-@media screen and (min-width: 45em) {
+@media screen and (min-width: 25em) {
   .score__container {
     grid-gap: 5vw;
     font-size: var(--fs-400);
