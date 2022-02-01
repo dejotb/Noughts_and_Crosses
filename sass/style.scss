@@ -17,6 +17,7 @@ $bp-sm: 45em; // 600px;
   --fs-600: clamp(3.25rem, 6vw + 1rem, 4rem);
   --fs-500: 2rem;
   --fs-400: 1.8rem;
+  --fs-300: clamp(1.5rem, 2vw + 0.4rem, 2.5rem);
 
   @media screen and (min-width: var(--bp-xl)) {
     :root {
@@ -245,7 +246,8 @@ body {
   width: 30vmax;
   z-index: -1;
   opacity: 0;
-  animation: refereeReveal 1.5s alternate 1s forwards ease-out;
+  animation: refereeReveal 3s alternate 1s forwards
+    cubic-bezier(0.61, -0.06, 0.65, 1.36);
   @media screen and (min-width: $bp-xxl) {
     width: 18vmax;
     margin-bottom: -4rem;
@@ -305,6 +307,7 @@ body {
   transform: translate(-50%, -50%);
   width: max(30rem, calc(35vw + 10rem));
   height: calc(12rem + 5vw);
+  font-size: var(--fs-300);
   display: grid;
   justify-items: center;
   align-items: center;
@@ -353,6 +356,19 @@ body {
   }
 }
 
+.mouth__open {
+  opacity: 0;
+  &-animation {
+    animation: mouthMove 3s 1 forwards;
+  }
+}
+
+.eyes {
+  &-animation {
+    animation: eyesMove 10s 3s infinite;
+  }
+}
+
 @keyframes handWaveLeft {
   0% {
     transform: rotate(-5deg) translate(0rem);
@@ -382,8 +398,71 @@ body {
     transform: translateY(10rem);
     opacity: 0;
   }
+
+  30% {
+    transform: translateY(6rem);
+    opacity: 1;
+  }
+
+  70% {
+    transform: translateY(6rem);
+    opacity: 1;
+  }
+
   100% {
     transform: translateY(0rem);
     opacity: 1;
+  }
+}
+
+@keyframes mouthMove {
+  0% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  99% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-1rem);
+    background-color: pink;
+    opacity: 0;
+  }
+}
+
+@keyframes eyesMove {
+  0% {
+    transform: translateY(2rem);
+  }
+
+  9% {
+    transform: translateY(2rem);
+  }
+
+  10% {
+    transform: translateY(2rem) translateX(-2rem);
+  }
+
+  20% {
+    transform: translateY(2rem) translateX(-2rem);
+  }
+
+  40% {
+    transform: translateY(-2rem) translateX(-2rem);
+  }
+
+  60% {
+    transform: translateY(2rem);
+  }
+
+  80% {
+    transform: translateY(2rem) translateX(1rem);
+  }
+
+  100% {
+    transform: translateY(0rem) translateX(1rem);
   }
 }

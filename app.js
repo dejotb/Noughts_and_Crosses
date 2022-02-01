@@ -82,7 +82,7 @@ const play = function () {
 
   const showDrawModal = function() {
     const html = `
-      <p>We have a draw!!</p>
+      <p>We have a draw!</p>
     `
     modal.insertAdjacentHTML('afterbegin', html);
     modal.classList.remove('hidden');
@@ -100,6 +100,9 @@ const play = function () {
     winnerDOMFields.forEach(el => el.classList.add('winner'));
 
     // animate referee
+
+    document.querySelector('.mouth__open').classList.add('mouth__open-animation');
+    document.querySelectorAll('.eyes').forEach(eye => eye.classList.remove('eyes-animation'));
 
     if (activePlayer === players[0]) {
       handLeft.classList.add('hand__left-animation');
@@ -127,6 +130,8 @@ const play = function () {
     board.addEventListener('click', selectBoardField);
     handRight.classList.remove('hand__right-animation');
     handLeft.classList.remove('hand__left-animation');
+    document.querySelector('.mouth__open').classList.remove('mouth__open-animation');
+    document.querySelectorAll('.eyes').forEach(eye => eye.classList.add('eyes-animation'));
 
   }
 
