@@ -141,6 +141,7 @@ body {
 }
 
 .board__container {
+  align-self: center;
   position: relative;
   height: 37vmax;
   width: 37vmax;
