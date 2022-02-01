@@ -442,34 +442,42 @@ body {
 
 @keyframes eyesMove {
   0% {
-    transform: translateY(2rem);
+    transform: translateY(0rem) translateX(0rem);
   }
 
-  9% {
-    transform: translateY(2rem);
+  3% {
+    transform: translateY(0rem) translateX(0rem);
   }
 
-  10% {
+  4% {
+    transform: translateY(2rem) translateX(2rem);
+  }
+
+  30% {
     transform: translateY(2rem) translateX(-2rem);
   }
 
-  20% {
-    transform: translateY(2rem) translateX(-2rem);
-  }
-
-  40% {
+  45% {
     transform: translateY(-2rem) translateX(-2rem);
   }
 
-  60% {
-    transform: translateY(2rem);
+  65% {
+    transform: translateY(-2rem) translateX(2.5rem);
   }
 
-  80% {
-    transform: translateY(2rem) translateX(1rem);
+  70% {
+    transform: translateY(0rem) translateX(0rem);
+  }
+
+  85% {
+    transform: translateY(0rem) translateX(0rem);
+  }
+
+  90% {
+    transform: translateY(2rem) translateX(0rem);
   }
 
   100% {
-    transform: translateY(0rem) translateX(1rem);
+    transform: translateY(0rem) translateX(0rem);
   }
 }
