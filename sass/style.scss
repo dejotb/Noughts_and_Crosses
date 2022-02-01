@@ -366,7 +366,14 @@ body {
 .mouth__open {
   opacity: 0;
   &-animation {
-    animation: mouthMove 3s 1 forwards;
+    animation: mouthOpenMove 3s 1 forwards;
+  }
+}
+
+.mouth__shut {
+  &-animation {
+    animation: mouthShutMove 8s 1 4s ease-in-out;
+    transform-origin: center;
   }
 }
 
@@ -422,7 +429,7 @@ body {
   }
 }
 
-@keyframes mouthMove {
+@keyframes mouthOpenMove {
   0% {
     transform: translateY(0rem);
     opacity: 1;
@@ -437,6 +444,24 @@ body {
     transform: translateY(-1rem);
     background-color: pink;
     opacity: 0;
+  }
+}
+
+@keyframes mouthShutMove {
+  0% {
+    transform: skew(0deg) translateX(0rem) translateY(0rem);
+  }
+
+  30% {
+    transform: skew(5deg) translateX(0.3rem);
+  }
+
+  70% {
+    transform: skew(5deg) translateX(0.3rem);
+  }
+
+  100% {
+    transform: skew(0deg) translateX(0rem) translateY(0rem);
   }
 }
 
