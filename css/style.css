@@ -316,7 +316,7 @@ body {
 }
 
 .mouth__shut-animation {
-  animation: mouthShutMove 8s 1 4s ease-in-out;
+  animation: mouthShutMove 7s 1 4s ease-in-out;
   transform-origin: center;
 }
 
@@ -384,10 +384,10 @@ body {
     transform: skew(0deg) translateX(0rem) translateY(0rem);
   }
   30% {
-    transform: skew(5deg) translateX(0.3rem);
+    transform: skew(5deg) translateX(0.2rem);
   }
-  70% {
-    transform: skew(5deg) translateX(0.3rem);
+  68% {
+    transform: skew(5deg) translateX(0.2rem);
   }
   100% {
     transform: skew(0deg) translateX(0rem) translateY(0rem);
