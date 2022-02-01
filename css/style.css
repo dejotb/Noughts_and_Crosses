@@ -308,7 +308,7 @@ body {
 }
 
 .eyes-animation {
-  animation: eyesMove 10s 3s infinite;
+  animation: eyesMove 9s 3s infinite ease-in-out;
 }
 
 @keyframes handWaveLeft {
@@ -339,11 +339,11 @@ body {
     opacity: 0;
   }
   30% {
-    transform: translateY(6rem);
+    transform: translateY(5rem);
     opacity: 1;
   }
   70% {
-    transform: translateY(6rem);
+    transform: translateY(5rem);
     opacity: 1;
   }
   100% {
