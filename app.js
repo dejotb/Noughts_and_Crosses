@@ -15,7 +15,7 @@ const play = function () {
 
 // Creates a grid of all winning combinations
 
-  const boardGrid = [
+  const boardGridWinCombinations = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
@@ -31,7 +31,7 @@ const play = function () {
   const player1 = new Player('Player1', 'cross.svg', 1);
   const player2 = new Player('Player2', 'circle.svg', 2);
 
-  // Board
+  // Select board classes
 
   const board = document.querySelector('.board__container');
   const boardFields = document.querySelectorAll('.board__item');
@@ -82,7 +82,7 @@ const play = function () {
 
       const fieldSelected = e.target.dataset.number;
 
-      // adds number to active players array of selected fields
+      // adds a number to active players array based on clicked field
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
       addImage(e, activePlayer);
       playersScore.forEach(el => el.style.opacity = '1');
@@ -94,13 +94,15 @@ const play = function () {
     }
   };
 
+  board.addEventListener('click', selectBoardField);
+
 //==========================================================================
-// Compares the active player's all fields selected ('allFieldsSelected' variable) with the winning combinations grid ("boardGrid" variable). Shows wether active player won/lost, or there is a draw
+// Compares the active player's all fields selected ('allFieldsSelected' variable) with the winning combinations grid ("boardGridWinCombinations" variable). Shows wether active player won/lost, or there is a draw
 //==========================================================================
 
   const checkResult = function(player) {
 
-    const containsAll = boardGrid.filter((arr) =>
+    const containsAll = boardGridWinCombinations.filter((arr) =>
       arr.every((el) => player.allFieldsSelected.includes(el))
     );
 
@@ -245,7 +247,7 @@ const clearData = function() {
     document.querySelector(`[data-id='0']`).innerHTML = drawScore;
   }
 
-  board.addEventListener('click', selectBoardField);
+
 };
 
 //==========================================================================
