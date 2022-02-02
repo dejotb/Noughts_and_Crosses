@@ -26,20 +26,25 @@ const play = function () {
     [3, 5, 7],
   ];
 
-  // Select class from HTML
-
-  const board = document.querySelector('.board__container');
-  const boardFields = document.querySelectorAll('.board__item');
-  const playersScore = document.querySelectorAll('.score__total');
-  const modal = document.querySelector('.modal__container');
-  const handLeft = document.querySelector('.hand__left');
-  const handRight = document.querySelector('.hand__right');
-
   // Creates players
 
   const player1 = new Player('Player1', 'cross.svg', 1);
   const player2 = new Player('Player2', 'circle.svg', 2);
 
+  // Board
+
+  const board = document.querySelector('.board__container');
+  const boardFields = document.querySelectorAll('.board__item');
+  const playersScore = document.querySelectorAll('.score__total');
+  const modal = document.querySelector('.modal__container');
+
+
+  // Select Referee classes
+
+  const mouthOpen = document.querySelector('.mouth__open');
+  const eyes = document.querySelectorAll('.eyes');
+  const handLeft = document.querySelector('.hand__left');
+  const handRight = document.querySelector('.hand__right');
 
   // Creates an array of players
 
@@ -53,13 +58,101 @@ const play = function () {
   let roundNr = 1;
 
 
-  let playerTun = 1;
+  let playerTurn = 1;
 
   // let startingPlayerCount = 0;
 
   let drawScore = 0;
 
+// ==========================================================================
+// handles board grid on click
+// ==========================================================================
+
+  const selectBoardField = function (e) {
+    if (playerTurn % 2) {
+      activePlayer = players[0];
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+
+    } else {
+      activePlayer = players[1];
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+    }
+
+    if (e.target.classList.contains('board__item')) {
+
+      const fieldSelected = e.target.dataset.number;
+
+      // adds number to active players array of selected fields
+      activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
+      addImage(e, activePlayer);
+      playersScore.forEach(el => el.style.opacity = '1');
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+      e.target.style.pointerEvents = 'none';
+      checkResult(activePlayer);
+      roundNr++;
+      playerTurn++
+    }
+  };
+
+//==========================================================================
+// Compares the active player's all fields selected ('allFieldsSelected' variable) with the winning combinations grid ("boardGrid" variable). Shows wether active player won/lost, or there is a draw
+//==========================================================================
+
+  const checkResult = function(player) {
+
+    const containsAll = boardGrid.filter((arr) =>
+      arr.every((el) => player.allFieldsSelected.includes(el))
+    );
+
+    // If player WON
+
+    if(containsAll.some((el) => el)) {
+      setTimeout(showWinModal, 1500);
+      addPointtoPlayer(player);
+      animateWinner(containsAll);
+      handleOnWinOrDraw()
+
+      // if it is a DRAW
+
+    } else if (roundNr === 9) {
+      setTimeout(showDrawModal, 1500);
+      addPointtoTie();
+      handleOnWinOrDraw()
+      board.classList.add('draw');
+    }
+
+  };
+
+//==========================================================================
+// Clear data and classes on next round
+//==========================================================================
+
+const clearData = function() {
+  roundNr = 1;
+  playerTurn+=2;
+
+  // board clearance
+  modal.classList.add('hidden');
+  board.querySelectorAll('.board__item').forEach(item => item.textContent = '');
+  player1.allFieldsSelected = [];
+  player2.allFieldsSelected = [];
+  boardFields.forEach(el => el.style.pointerEvents = 'all');
+  board.classList.remove('draw');
+  document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+  modal.innerHTML = '<button>next round!</button>';
+
+  // Referee classes clearance
+  handRight.classList.remove('hand__right-animation');
+  handLeft.classList.remove('hand__left-animation');
+  mouthOpen.classList.remove('mouth__open-animation');
+  eyes.forEach(eye => eye.classList.add('eyes-animation'));
+  board.addEventListener('click', selectBoardField);
+
+}
+
+  //==========================================================================
   // Add cross/circle image to the board grid
+  //==========================================================================
 
   const addImage = function (e, player) {
     const html = `
@@ -72,6 +165,10 @@ const play = function () {
 
   };
 
+//==========================================================================
+  // Show modal with information about a win
+//==========================================================================
+
   const showWinModal = function() {
     const html = `
       <p>${activePlayer.playerName} won!</p>
@@ -79,6 +176,10 @@ const play = function () {
     modal.insertAdjacentHTML('afterbegin', html);
     modal.classList.remove('hidden');
   }
+
+//==========================================================================
+  // Show modal with information about a draw
+//==========================================================================
 
   const showDrawModal = function() {
     const html = `
@@ -88,6 +189,9 @@ const play = function () {
     modal.classList.remove('hidden');
   }
 
+//==========================================================================
+  // Animation of winning combination
+//==========================================================================
 
   const animateWinner = function(winningCombination) {
 
@@ -101,119 +205,51 @@ const play = function () {
 
     // animate referee
 
-    document.querySelector('.mouth__open').classList.add('mouth__open-animation');
-    document.querySelectorAll('.eyes').forEach(eye => eye.classList.remove('eyes-animation'));
+    mouthOpen.classList.add('mouth__open-animation');
+    eyes.forEach(eye => eye.classList.remove('eyes-animation'));
 
     if (activePlayer === players[0]) {
       handLeft.classList.add('hand__left-animation');
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '1';
     } else if (activePlayer === players[1]) {
       handRight.classList.add('hand__right-animation');
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '1';
+
     };
-
     // highlight winner score board
-
+      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '1';
   }
 
-  const clearData = function() {
-    modal.classList.add('hidden');
-    board.querySelectorAll('.board__item').forEach(item => item.textContent = '');
-    player1.allFieldsSelected = [];
-    player2.allFieldsSelected = [];
-    roundNr = 1;
-    playerTun+=2;
-    boardFields.forEach(el => el.style.pointerEvents = 'all');
-    document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-    board.classList.remove('draw');
-    modal.innerHTML = '<button>next round!</button>';
-    board.addEventListener('click', selectBoardField);
-    handRight.classList.remove('hand__right-animation');
-    handLeft.classList.remove('hand__left-animation');
-    document.querySelector('.mouth__open').classList.remove('mouth__open-animation');
-    document.querySelectorAll('.eyes').forEach(eye => eye.classList.add('eyes-animation'));
+//==========================================================================
+  // Show modal and create event to clear data on click after win/draw game
+//==========================================================================
 
+  const handleOnWinOrDraw = function() {
+    board.removeEventListener('click', selectBoardField);
+    document.querySelector('button').addEventListener('click', clearData);
   }
 
- // Addes point to players score after a win
+//==========================================================================
+  // Adds point to player's score after a win
+//==========================================================================
 
   const addPointtoPlayer = function(player) {
     player.playerScore+=1;
     document.querySelector(`[data-id='${player.playerNumber}']`).innerHTML = player.playerScore;
   }
 
+//==========================================================================
+  // Adds point to draw score
+//==========================================================================
+
   const addPointtoTie = function() {
     drawScore++;
     document.querySelector(`[data-id='0']`).innerHTML = drawScore;
-
   }
-
-  // Compares the active player's all fields selected ('allFieldsSelected' variable) with the winning combinations grid ("boardGrid" variable).
-  // Shows wether active player won/lost, or there is a draw
-
-  const checkResult = function(player) {
-
-  const containsAll = boardGrid.filter((arr) =>
-    arr.every((el) => player.allFieldsSelected.includes(el))
-  );
-
-  // If player WON
-
-  if(containsAll.some((el) => el)) {
-    animateWinner(containsAll);
-
-    board.removeEventListener('click', selectBoardField);
-    setTimeout(showWinModal, 1500);
-    addPointtoPlayer(player);
-    document.querySelector('button').addEventListener('click', clearData);
-
-    // if it is a DRAW
-
-  } else if (roundNr === 9) {
-    board.removeEventListener('click', selectBoardField);
-    board.classList.add('draw');
-    setTimeout(showDrawModal, 1500);
-    addPointtoTie();
-
-    document.querySelector('button').addEventListener('click', clearData);
-  }
-
-  };
-
-  const selectBoardField = function (e) {
-    if (playerTun % 2) {
-      activePlayer = players[0];
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-
-    } else {
-      activePlayer = players[1];
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-
-    }
-
-
-
-    if (e.target.classList.contains('board__item')) {
-      const fieldSelected = e.target.dataset.number;
-      activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
-      addImage(e, activePlayer);
-
-      playersScore.forEach(el => el.style.opacity = '1');
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-      e.target.style.pointerEvents = 'none';
-      checkResult(activePlayer)
-      roundNr++;
-      playerTun++
-
-
-
-
-    }
-  };
 
   board.addEventListener('click', selectBoardField);
-
 };
 
+//==========================================================================
+// Run all functions
+//==========================================================================
 play();
 
