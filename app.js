@@ -72,17 +72,14 @@ const play = function () {
 
     if (e.target.classList.contains('board__item')) {
       selectBoardField(e);
-
     }
   };
 
   const selectBoardFieldOnKeyDown = function (e) {
     if (e.target.classList.contains('board__item') && e.key === 'Enter') {
       selectBoardField(e);
-
     }
   };
-
 
   const selectBoardField = function (e) {
       if (playerTurn % 2) {
@@ -98,12 +95,12 @@ const play = function () {
       // adds a number to active players array based on clicked field
       const fieldSelected = e.target.dataset.number;
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
-      addImage(e, activePlayer);
       playersScore.forEach(el => el.style.opacity = '1');
       document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
       e.target.style.pointerEvents = 'none';
       e.target.removeEventListener('keydown', selectBoardFieldOnKeyDown);
       e.target.tabIndex= '-1';
+      addImage(e, activePlayer);
       checkResult(activePlayer);
       roundNr++;
       playerTurn++
