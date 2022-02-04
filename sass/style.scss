@@ -27,13 +27,13 @@ $bp-sm: 30em; // 480px;
   }
 
   // colors
-  --color-font: #11347d;
-
+  --color-blue-light: 17, 52, 125;
   --color-yellow: #fdd01b;
   --color-blue: #0c2461;
   --color-red: #db3445;
   --color-white: #ffffff;
   --color-grey: #363636;
+  --color-pink: 240, 46, 170;
 
   // z-index
 
@@ -183,6 +183,11 @@ body {
     justify-items: center;
     align-items: center;
     background-color: var(--color-blue);
+    border: transparent solid 5px;
+
+    &:focus {
+      border-color: rgba(var(--color-pink));
+    }
   }
 }
 
@@ -275,7 +280,13 @@ body {
   align-items: center;
   transition: all 0.5s;
   padding: 2rem;
-  background-color: var(--color-font);
+  border-radius: 2px;
+  background-color: rgba(var(--color-blue-light));
+  box-shadow: 5px 5px rgba(var(--color-pink), 0.7),
+    10px 10px rgba(var(--color-pink), 0.6),
+    15px 15px rgba(var(--color-pink), 0.4),
+    20px 20px rgba(var(--color-pink), 0.2),
+    25px 25px rgba(var(--color-pink), 0.05);
 
   & button {
     font-size: var(--fs-500);
@@ -312,7 +323,7 @@ body {
 
 .mouth__shut {
   &-animation {
-    animation: mouthShutMove 7s 1 4s ease-in-out;
+    animation: mouthShutMove 4s 1 4s ease-in-out;
     transform-origin: center;
   }
 }
@@ -437,11 +448,11 @@ body {
   }
 
   30% {
-    transform: skew(5deg) translateX(0.2rem);
+    transform: skew(2deg) translateX(0.2rem);
   }
 
   68% {
-    transform: skew(5deg) translateX(0.2rem);
+    transform: skew(2deg) translateX(0.2rem);
   }
 
   100% {

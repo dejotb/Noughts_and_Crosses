@@ -65,36 +65,51 @@ const play = function () {
   let drawScore = 0;
 
 // ==========================================================================
-// handles board grid on click
+// handles board grid on click / on keyDown
 // ==========================================================================
 
-  const selectBoardField = function (e) {
-    if (playerTurn % 2) {
-      activePlayer = players[0];
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-
-    } else {
-      activePlayer = players[1];
-      document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-    }
+  const selectBoardFieldOnClick = function (e) {
 
     if (e.target.classList.contains('board__item')) {
+      selectBoardField(e);
 
-      const fieldSelected = e.target.dataset.number;
+    }
+  };
+
+  const selectBoardFieldOnKeyDown = function (e) {
+    if (e.target.classList.contains('board__item') && e.key === 'Enter') {
+      selectBoardField(e);
+
+    }
+  };
+
+
+  const selectBoardField = function (e) {
+      if (playerTurn % 2) {
+        activePlayer = players[0];
+        document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+
+      } else {
+        activePlayer = players[1];
+        document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+      }
+
 
       // adds a number to active players array based on clicked field
+      const fieldSelected = e.target.dataset.number;
       activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
       addImage(e, activePlayer);
       playersScore.forEach(el => el.style.opacity = '1');
       document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
       e.target.style.pointerEvents = 'none';
+      e.target.removeEventListener('keydown', selectBoardFieldOnKeyDown);
+      e.target.tabIndex= '-1';
       checkResult(activePlayer);
       roundNr++;
       playerTurn++
-    }
+
   };
 
-  board.addEventListener('click', selectBoardField);
 
 //==========================================================================
 // Compares the active player's all fields selected ('allFieldsSelected' variable) with the winning combinations grid ("boardGridWinCombinations" variable). Shows wether active player won/lost, or there is a draw
@@ -112,14 +127,14 @@ const play = function () {
       setTimeout(showWinModal, 1500);
       addPointtoPlayer(player);
       animateWinner(containsAll);
-      handleOnWinOrDraw()
+      handleOnWinOrDraw();
 
       // if it is a DRAW
 
     } else if (roundNr === 9) {
       setTimeout(showDrawModal, 1500);
       addPointtoTie();
-      handleOnWinOrDraw()
+      handleOnWinOrDraw();
       board.classList.add('draw');
     }
 
@@ -129,28 +144,30 @@ const play = function () {
 // Clear data and classes on next round
 //==========================================================================
 
-const clearData = function() {
-  roundNr = 1;
-  playerTurn+=2;
+  const clearData = function() {
+    roundNr = 1;
+    playerTurn+=2;
 
-  // board clearance
-  modal.classList.add('hidden');
-  board.querySelectorAll('.board__item').forEach(item => item.textContent = '');
-  player1.allFieldsSelected = [];
-  player2.allFieldsSelected = [];
-  boardFields.forEach(el => el.style.pointerEvents = 'all');
-  board.classList.remove('draw');
-  document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
-  modal.innerHTML = '<button>next round!</button>';
+    // board clearance
+    modal.classList.add('hidden');
+    board.querySelectorAll('.board__item').forEach(item => item.textContent = '');
+    players.forEach(el => el.allFieldsSelected = []);
+    boardFields.forEach(el => el.style.pointerEvents = 'all');
+    board.classList.remove('draw');
+    document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
+    modal.innerHTML = '<button>next round!</button>';
+    [...board.children].forEach(el => el.tabIndex = '0');
 
-  // Referee classes clearance
-  handRight.classList.remove('hand__right-animation');
-  handLeft.classList.remove('hand__left-animation');
-  mouthOpen.classList.remove('mouth__open-animation');
-  eyes.forEach(eye => eye.classList.add('eyes-animation'));
-  board.addEventListener('click', selectBoardField);
+    board.addEventListener('click', selectBoardFieldOnClick);
+    [...board.children].forEach(el => el.addEventListener('keydown', selectBoardFieldOnKeyDown));
 
-}
+    // Referee classes clearance
+    handRight.classList.remove('hand__right-animation');
+    handLeft.classList.remove('hand__left-animation');
+    mouthOpen.classList.remove('mouth__open-animation');
+    eyes.forEach(eye => eye.classList.add('eyes-animation'));
+
+  }
 
   //==========================================================================
   // Add cross/circle image to the board grid
@@ -227,6 +244,7 @@ const clearData = function() {
   const handleOnWinOrDraw = function() {
     board.removeEventListener('click', selectBoardField);
     document.querySelector('button').addEventListener('click', clearData);
+    [...board.children].forEach(el => el.tabIndex = '-1');
   }
 
 //==========================================================================
@@ -246,6 +264,11 @@ const clearData = function() {
     drawScore++;
     document.querySelector(`[data-id='0']`).innerHTML = drawScore;
   }
+
+
+  board.addEventListener('click', selectBoardFieldOnClick);
+
+  [...board.children].forEach(el => el.addEventListener('keydown', selectBoardFieldOnKeyDown));
 
 
 };
