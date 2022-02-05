@@ -91,10 +91,6 @@ button {
   border-radius: 5px;
 }
 
-button:focus {
-  outline: 3px rgba(var(--color-yellow)) solid;
-}
-
 img,
 picture,
 video,
@@ -366,10 +362,10 @@ body {
 
 @keyframes drawAnimation {
   0% {
-    background-color: rgba(var(--color-blue-light));
+    background-color: rgba(var(--color-white));
   }
   100% {
-    background-color: rgba(var(--color-white));
+    background-color: rgba(var(--color-blue-light));
   }
 }
 

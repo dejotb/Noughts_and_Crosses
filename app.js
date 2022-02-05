@@ -265,7 +265,7 @@ const play = function () {
 
   board.addEventListener('click', selectBoardFieldOnClick);
 
-  [...board.children].forEach(el => el.addEventListener('keydown', selectBoardFieldOnKeyDown));
+  // [...board.children].forEach(el => el.addEventListener('keydown', selectBoardFieldOnKeyDown));
 
 
 };
