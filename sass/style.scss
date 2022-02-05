@@ -77,8 +77,8 @@ body {
 }
 
 ::selection {
-  background-color: rgba(var(--color-yellow));
-  color: rgba(var(--color-grey));
+  background-color: transparent;
+  color: rgba(var(--color-white));
 }
 
 a:hover,
@@ -88,6 +88,12 @@ button:hover {
 
 button {
   font-family: inherit;
+  border: none;
+  border-radius: 5px;
+}
+
+button:focus {
+  outline: 3px rgba(var(--color-yellow)) solid;
 }
 
 img,
@@ -182,6 +188,7 @@ body {
     justify-items: center;
     align-items: center;
     background-color: rgba(var(--color-blue));
+    cursor: pointer;
   }
 }
 
