@@ -56,8 +56,7 @@ ul {
 
 * {
   &:focus {
-    outline-style: solid;
-    outline-width: 2px;
+    outline: none;
   }
 }
 
@@ -283,7 +282,7 @@ body {
   transition: all 0.5s;
   padding: 2rem;
   border-radius: 5px;
-  border: rgba(var(--color-pink)) solid 4px;
+  border: rgba(var(--color-pink)) solid 1px;
   background-color: rgba(var(--color-blue-light));
   box-shadow: 5px 5px rgba(var(--color-blue-light), 0.7),
     10px 10px rgba(var(--color-blue-light), 0.6),

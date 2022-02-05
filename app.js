@@ -75,11 +75,11 @@ const play = function () {
     }
   };
 
-  const selectBoardFieldOnKeyDown = function (e) {
-    if (e.target.classList.contains('board__item') && e.key === 'Enter') {
-      selectBoardField(e);
-    }
-  };
+  // const selectBoardFieldOnKeyDown = function (e) {
+  //   if (e.target.classList.contains('board__item') && e.key === 'Enter') {
+  //     selectBoardField(e);
+  //   }
+  // };
 
   const selectBoardField = function (e) {
       if (playerTurn % 2) {
@@ -98,7 +98,7 @@ const play = function () {
       playersScore.forEach(el => el.style.opacity = '1');
       document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
       e.target.style.pointerEvents = 'none';
-      e.target.removeEventListener('keydown', selectBoardFieldOnKeyDown);
+      // e.target.removeEventListener('keydown', selectBoardFieldOnKeyDown);
       e.target.tabIndex= '-1';
       addImage(e, activePlayer);
       checkResult(activePlayer);
@@ -153,10 +153,10 @@ const play = function () {
     board.classList.remove('draw');
     document.querySelector(`[data-id='${activePlayer.playerNumber}']`).closest('.score__total').style.opacity = '0.5';
     modal.innerHTML = '<button>next round!</button>';
-    [...board.children].forEach(el => el.tabIndex = '0');
+    // [...board.children].forEach(el => el.tabIndex = '0');
 
     board.addEventListener('click', selectBoardFieldOnClick);
-    [...board.children].forEach(el => el.addEventListener('keydown', selectBoardFieldOnKeyDown));
+    // [...board.children].forEach(el => el.addEventListener('keydown', selectBoardFieldOnKeyDown));
 
     // Referee classes clearance
     handRight.classList.remove('hand__right-animation');
