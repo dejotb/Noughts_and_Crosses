@@ -283,7 +283,7 @@ body {
   padding: 2rem;
   border-radius: 5px;
   border: rgba(var(--color-pink)) solid 1px;
-  background-color: rgba(var(--color-blue-light));
+  background-color: rgba(var(--color-blue-light), 0.97);
   box-shadow: 5px 5px rgba(var(--color-blue-light), 0.7),
     10px 10px rgba(var(--color-blue-light), 0.6),
     15px 15px rgba(var(--color-blue-light), 0.4),
@@ -293,6 +293,8 @@ body {
   & button {
     font-size: var(--fs-500);
     padding: 0.5rem 1rem;
+    z-index: 10;
+    cursor: pointer;
   }
 }
 
