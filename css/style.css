@@ -186,7 +186,7 @@ body {
   display: grid;
   flex-direction: column;
   justify-items: center;
-  align-items: end;
+  align-items: center;
   grid-gap: 1rem;
   opacity: 0.5;
 }
@@ -198,6 +198,7 @@ body {
 }
 .score__image {
   width: 3rem;
+  height: 3rem;
 }
 
 .image__referee {
