@@ -70,12 +70,6 @@ const play = function () {
     }
   };
 
-  // const selectBoardFieldOnKeyDown = function (e) {
-  //   if (e.target.classList.contains('board__item') && e.key === 'Enter') {
-  //     selectBoardField(e);
-  //   }
-  // };
-
   const selectBoardField = function (e) {
     if (playerTurn % 2) {
       activePlayer = players[0];
@@ -97,7 +91,6 @@ const play = function () {
       .querySelector(`[data-id='${activePlayer.playerNumber}']`)
       .closest('.score__total').style.opacity = '0.5';
     e.target.style.pointerEvents = 'none';
-    // e.target.removeEventListener('keydown', selectBoardFieldOnKeyDown);
     e.target.tabIndex = '-1';
     addImage(e, activePlayer);
     checkResult(activePlayer);
@@ -151,10 +144,8 @@ const play = function () {
       .querySelector(`[data-id='${activePlayer.playerNumber}']`)
       .closest('.score__total').style.opacity = '0.5';
     modal.innerHTML = '<button>next round!</button>';
-    // [...board.children].forEach(el => el.tabIndex = '0');
 
     board.addEventListener('click', selectBoardFieldOnClick);
-    // [...board.children].forEach(el => el.addEventListener('keydown', selectBoardFieldOnKeyDown));
 
     // Referee classes clearance
     handRight.classList.remove('hand__right-animation');
@@ -261,8 +252,6 @@ const play = function () {
   };
 
   board.addEventListener('click', selectBoardFieldOnClick);
-
-  // [...board.children].forEach(el => el.addEventListener('keydown', selectBoardFieldOnKeyDown));
 };
 
 //= =========================================================================
