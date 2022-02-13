@@ -210,7 +210,7 @@ const play = function () {
 
     const count = 200;
     const defaults = {
-      origin: { y: 0.7 },
+      origin: { y: 0.55 },
     };
 
     function fire(particleRatio, opts) {
