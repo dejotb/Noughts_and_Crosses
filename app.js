@@ -11,7 +11,7 @@ class Player {
 }
 
 const play = function () {
-  // Creates a grid of all winning combinations
+  // A grid of all winning combinations
 
   const boardGridWinCombinations = [
     [1, 2, 3],
@@ -24,7 +24,7 @@ const play = function () {
     [3, 5, 7],
   ];
 
-  // Creates players
+  // Players
 
   const player1 = new Player('Player1', 'cross.svg', 1);
   const player2 = new Player('Player2', 'circle.svg', 2);
@@ -43,7 +43,7 @@ const play = function () {
   const handLeft = document.querySelector('.hand__left');
   const handRight = document.querySelector('.hand__right');
 
-  // Creates an array of players
+  // An array of players
 
   const players = [player1, player2];
 
@@ -55,8 +55,6 @@ const play = function () {
   let roundNr = 1;
 
   let playerTurn = 1;
-
-  // let startingPlayerCount = 0;
 
   let drawScore = 0;
 
@@ -83,7 +81,7 @@ const play = function () {
         .closest('.score__total').style.opacity = '0.5';
     }
 
-    // adds a number to active players array based on clicked field
+    // adds a number to active players array based on the clicked field
     const fieldSelected = e.target.dataset.number;
     activePlayer.allFieldsSelected.push(parseInt(fieldSelected));
     playersScore.forEach((el) => (el.style.opacity = '1'));
@@ -125,7 +123,7 @@ const play = function () {
   };
 
   //= =========================================================================
-  // Clear data and classes on next round
+  // Clear data and classes on a new round
   //= =========================================================================
 
   const clearData = function () {
@@ -160,7 +158,7 @@ const play = function () {
 
   const addImage = function (e, player) {
     const html = `
-            <img class='image' src='img/${player.image}' alt='image'>
+            <img class='image' src='img/${player.image}' alt=''>
         `;
     if (e.target.classList.contains('board__item')) {
       e.target.insertAdjacentHTML('afterbegin', html);
@@ -169,7 +167,7 @@ const play = function () {
   };
 
   //= =========================================================================
-  // Show modal with information about a win
+  // Show modal with information about a winner
   //= =========================================================================
 
   const showWinModal = function () {
@@ -243,6 +241,7 @@ const play = function () {
     } else if (activePlayer === players[1]) {
       handRight.classList.add('hand__right-animation');
     }
+
     // highlight winner score board
     document
       .querySelector(`[data-id='${activePlayer.playerNumber}']`)
@@ -256,7 +255,6 @@ const play = function () {
   const handleOnWinOrDraw = function () {
     board.removeEventListener('click', selectBoardField);
     document.querySelector('button').addEventListener('click', clearData);
-    [...board.children].forEach((el) => (el.tabIndex = '-1'));
   };
 
   //= =========================================================================
