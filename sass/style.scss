@@ -33,8 +33,8 @@ $bp-sm: 30em; // 480px;
   --color-white: 255, 255, 255;
   --color-grey: 54, 54, 54;
   --color-pink: 217, 128, 250;
-  // z-index
 
+  // z-index
   --z-index-negative: -1;
   --z-index-box: 1000;
   --z-index-popup: 1100;
@@ -233,13 +233,9 @@ body {
     height: 3rem;
   }
 
-  &__button {
-    // justify-self: end;
-
-    & button {
-      font-size: 1.4rem;
-      padding: 0.2rem;
-    }
+  &__button button {
+    font-size: 1.4rem;
+    padding: 0.2rem;
   }
 }
 
