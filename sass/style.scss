@@ -200,7 +200,7 @@ body {
     font-size: 1.1rem;
     display: flex;
     background-color: black;
-    margin: 2rem 0 0.5rem;
+    margin: 2rem 0 1rem;
     grid-gap: 12vw;
     padding: 1rem;
     border-radius: 5px;
@@ -233,9 +233,13 @@ body {
     height: 3rem;
   }
 
-  &__button button {
-    font-size: 1.4rem;
-    padding: 0.2rem;
+  &__button {
+    // justify-self: end;
+
+    & button {
+      font-size: 1.4rem;
+      padding: 0.2rem;
+    }
   }
 }
 
