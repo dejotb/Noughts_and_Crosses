@@ -298,6 +298,7 @@ const play = function () {
     boardFields.forEach((el) => (el.style.pointerEvents = 'all'));
     board.classList.remove('draw');
     roundNr = 1;
+    drawScore = 0;
   };
 
   btnReset.addEventListener('click', resetScores);
