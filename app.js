@@ -36,6 +36,10 @@ const play = function () {
   const playersScore = document.querySelectorAll('.score__total');
   const modal = document.querySelector('.modal__container');
 
+  // Select button id
+
+  const btnReset = document.querySelector('#btn__reset-score');
+
   // Select Referee classes
 
   const mouthOpen = document.querySelector('.mouth__open');
@@ -141,7 +145,7 @@ const play = function () {
     document
       .querySelector(`[data-id='${activePlayer.playerNumber}']`)
       .closest('.score__total').style.opacity = '0.5';
-    modal.innerHTML = '<button>next round!</button>';
+    modal.innerHTML = '<button id="btn__next-round">next round!</button>';
 
     board.addEventListener('click', selectBoardFieldOnClick);
 
@@ -254,7 +258,9 @@ const play = function () {
 
   const handleOnWinOrDraw = function () {
     board.removeEventListener('click', selectBoardField);
-    document.querySelector('button').addEventListener('click', clearData);
+    document
+      .querySelector('#btn__next-round')
+      .addEventListener('click', clearData);
   };
 
   //= =========================================================================
@@ -277,6 +283,24 @@ const play = function () {
   };
 
   board.addEventListener('click', selectBoardFieldOnClick);
+
+  //= =========================================================================
+  // Resets a score
+  //= =========================================================================
+  const resetScores = function () {
+    const scores = document.querySelectorAll(`[data-id]`);
+    players.map((player) => (player.playerScore = 0));
+    scores.forEach((score) => (score.innerHTML = 0));
+    board
+      .querySelectorAll('.board__item')
+      .forEach((item) => (item.textContent = ''));
+    players.forEach((el) => (el.allFieldsSelected = []));
+    boardFields.forEach((el) => (el.style.pointerEvents = 'all'));
+    board.classList.remove('draw');
+    roundNr = 1;
+  };
+
+  btnReset.addEventListener('click', resetScores);
 };
 
 //= =========================================================================

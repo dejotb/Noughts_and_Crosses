@@ -193,13 +193,14 @@ body {
   &__wrapper {
     display: grid;
     justify-items: center;
+    margin-bottom: 1rem;
   }
 
   &__container {
     font-size: 1.1rem;
     display: flex;
     background-color: black;
-    margin: 2rem 0;
+    margin: 2rem 0 0.5rem;
     grid-gap: 12vw;
     padding: 1rem;
     border-radius: 5px;
@@ -230,6 +231,11 @@ body {
   &__image {
     width: 3rem;
     height: 3rem;
+  }
+
+  &__button button {
+    font-size: 1.4rem;
+    padding: 0.2rem;
   }
 }
 
