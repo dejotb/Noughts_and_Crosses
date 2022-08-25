@@ -8,6 +8,8 @@ Project made to practice events handling, DOM manipulation and most of all, figu
 
 - Event handling,
 - DOM manipulation,
+- Organizing JavaScript code into separate modules
+- Modules,
 - Animations in CSS.
 
 Live: https://dejotb.github.io/Noughts_and_Crosses/
