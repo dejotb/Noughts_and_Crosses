@@ -2,8 +2,8 @@ import Player from '../lib/player.js';
 
 // Players
 
-export const player1 = new Player('Player1', 'cross.svg', 1);
-export const player2 = new Player('Player2', 'circle.svg', 2);
+export const player1 = new Player('Player1', 'cross.4cbdff5e.svg', 1);
+export const player2 = new Player('Player2', 'circle.5ca8fc71.svg', 2);
 
 // Select board classes
 
