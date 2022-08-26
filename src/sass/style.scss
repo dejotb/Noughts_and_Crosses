@@ -19,12 +19,12 @@ $bp-sm: 30em; // 480px;
   --fs-400: 1.8rem;
   --fs-300: clamp(1.5rem, 2vw + 0.4rem, 2.5rem);
 
-  @media screen and (min-width: var(--bp-xl)) {
-    :root {
-      --fs-500: 2.75rem;
-      --fs-400: 2.5rem;
-    }
-  }
+  // @media screen and (min-width: var(--bp-xl)) {
+  //   :root {
+  //     --fs-500: 2.75rem;
+  //     --fs-400: 2.5rem;
+  //   }
+  // }
 
   // colors
   --color-blue-light: 17, 52, 125;
@@ -444,7 +444,7 @@ body {
 
   100% {
     transform: translateY(-1rem);
-    background-color: pink;
+    background-color: rgba(var(--color-pink));
     opacity: 0;
   }
 }

@@ -17,12 +17,12 @@
   --z-index-modal: 1200;
   --z-index-loader: 1300;
 }
-@media screen and (min-width: var(--bp-xl)) {
-  :root :root {
+/* @media screen and (min-width: var(--bp-xl)) {
+  :root {
     --fs-500: 2.75rem;
     --fs-400: 2.5rem;
   }
-}
+} */
 
 *,
 *::before,
@@ -183,7 +183,8 @@ body {
     font-size: var(--fs-400);
   }
 }
-.score__total, .score__draw {
+.score__total,
+.score__draw {
   display: grid;
   flex-direction: column;
   justify-items: center;
@@ -212,7 +213,8 @@ body {
   width: 30vmax;
   z-index: -1;
   opacity: 0;
-  animation: refereeReveal 3s alternate 1s forwards cubic-bezier(0.61, -0.06, 0.65, 1.36);
+  animation: refereeReveal 3s alternate 1s forwards
+    cubic-bezier(0.61, -0.06, 0.65, 1.36);
 }
 @media screen and (min-width: 90em) {
   .image__referee {
@@ -249,7 +251,11 @@ body {
   border-radius: 5px;
   border: rgba(var(--color-pink)) solid 1px;
   background-color: rgba(var(--color-blue-light), 0.97);
-  box-shadow: 5px 5px rgba(var(--color-blue-light), 0.7), 10px 10px rgba(var(--color-blue-light), 0.6), 15px 15px rgba(var(--color-blue-light), 0.4), 20px 20px rgba(var(--color-blue-light), 0.2), 25px 25px rgba(var(--color-blue-light), 0.05);
+  box-shadow: 5px 5px rgba(var(--color-blue-light), 0.7),
+    10px 10px rgba(var(--color-blue-light), 0.6),
+    15px 15px rgba(var(--color-blue-light), 0.4),
+    20px 20px rgba(var(--color-blue-light), 0.2),
+    25px 25px rgba(var(--color-blue-light), 0.05);
 }
 .modal__container button {
   font-size: var(--fs-500);
